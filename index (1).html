@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Money Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    form {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    label, input, select {
+      display: block;
+      margin-bottom: 10px;
+    }
+    #transactions {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Money Tracker</h2>
+
+  <form id="transactionForm">
+    <label for="type">Transaction Type:</label>
+    <select id="type" name="type" required>
+      <option value="expense">Expense</option>
+      <option value="income">Income</option>
+    </select>
+
+    <label for="amount">Amount:</label>
+    <input type="number" id="amount" name="amount" required>
+
+    <button type="submit">Add Transaction</button>
+  </form>
+
+  <div id="transactions">
+    <h3>Transactions</h3>
+    <ul id="transactionList"></ul>
+  </div>
+
+  <script>
+    document.getElementById('transactionForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      var type = document.getElementById('type').value;
+      var amount = parseFloat(document.getElementById('amount').value);
+
+      if (isNaN(amount)) {
+        alert('Please enter a valid amount.');
+        return;
+      }
+
+      var transactionList = document.getElementById('transactionList');
+      var listItem = document.createElement('li');
+      listItem.textContent = type.charAt(0).toUpperCase() + type.slice(1) + ': $' + amount.toFixed(2);
+      transactionList.appendChild(listItem);
+
+      // Clear the form
+      document.getElementById('transactionForm').reset();
+    });
+  </script>
+
+</body>
+</html>
